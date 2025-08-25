@@ -2,57 +2,27 @@
 <html>
 <head>
     <title>Due Date Reminder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            width: 300px;
-            padding: 10px;
-        }
-        h2 {
-            margin-top: 0;
-            font-size: 1.2em;
-        }
-        input, textarea, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            padding: 5px;
-            box-sizing: border-box;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            position: relative;
-        }
-        .delete-btn {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: #f44336;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Add New Due Date</h2>
-    <input type="text" id="taskInput" placeholder="Task description">
-    <input type="datetime-local" id="dateInput">
-    <button id="saveBtn">Save Reminder</button>
-    
-    <h2>Your Reminders</h2>
-    <ul id="reminderList"></ul>
+    <div class="container">
+        <h2 class="section-header">Add New Reminder</h2>
+        <input type="text" id="taskInput" placeholder="Task description">
+        <input type="datetime-local" id="dateInput">
+        <div class="repeat-section">
+            <label for="repeatFrequency">Repeat:</label>
+            <select id="repeatFrequency">
+                <option value="none">None</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+        </div>
+        <button id="saveBtn" class="cta-button">Save Reminder</button>
+        
+        <h2 class="section-header">Your Reminders</h2>
+        <ul id="reminderList" class="reminder-list"></ul>
+    </div>
     
     <script src="popup.js"></script>
 </body>

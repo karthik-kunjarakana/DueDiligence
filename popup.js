@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const taskInput = document.getElementById('taskInput');
     const dateInput = document.getElementById('dateInput');
+    const repeatFrequency = document.getElementById('repeatFrequency');
     const saveBtn = document.getElementById('saveBtn');
     const reminderList = document.getElementById('reminderList');
 
@@ -11,10 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
             reminderList.innerHTML = ''; // Clear the list
             reminders.forEach((reminder, index) => {
                 const li = document.createElement('li');
+                li.className = 'reminder-item';
                 const dueDate = new Date(reminder.date);
                 li.innerHTML = `
-                    <strong>${reminder.task}</strong><br>
-                    <small>Due: ${dueDate.toLocaleString()}</small>
+                    <div class="reminder-info">
+                        <strong>${reminder.task}</strong>
+                        <small>Due: ${dueDate.toLocaleString()}</small>
+                        ${reminder.repeat !== 'none' ? `<br><small>Repeats: ${reminder.repeat}</small>` : ''}
+                    </div>
                     <button class="delete-btn" data-index="${index}">&times;</button>
                 `;
                 reminderList.appendChild(li);
@@ -28,9 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     saveBtn.addEventListener('click', () => {
         const task = taskInput.value;
         const date = dateInput.value;
+        const repeat = repeatFrequency.value;
 
         if (task && date) {
-            const reminder = { task, date };
+            const reminder = { task, date, repeat };
             
             // Get existing reminders from storage
             chrome.storage.local.get(['reminders'], (result) => {
@@ -49,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     loadReminders();
                     taskInput.value = '';
                     dateInput.value = '';
+                    repeatFrequency.value = 'none';
                 });
             });
         }
